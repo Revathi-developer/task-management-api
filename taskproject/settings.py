@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("django-insecure-^73q0d@4gl#+#o06vrm93z20sr_=fd4cne&!+e24xdizav21^7")
+DEBUG = os.getenv("DEBUG") == "True"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,8 +87,12 @@ WSGI_APPLICATION = 'taskproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':os.getenv('taskdb'),
+        "USER": os.getenv('postgres'),
+        "PASSWORD": os.getenv('Revathi12'),
+        "HOST": os.getenv('localhost'),
+        "PORT": os.getenv('5432'),
     }
 }
 
