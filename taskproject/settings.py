@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'django_filters',
+    'drf_spectacular',
     
     
 ]
@@ -154,5 +155,40 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES' : (
        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+
+    
+    ),
+
+
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+from drf_spectacular.settings import spectacular_settings
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Task Management API",
+    "DESCRIPTION": "A REST API for managing tasks with JWT Authentication.",
+    "VERSION": "1.0.0",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Task Management API",
+    "DESCRIPTION": "A REST API for managing tasks with JWT Authentication.",
+    "VERSION": "1.0.0",
+
+    "SECURITY": [
+        {
+            "BearerAuth": []
+        }
+    ],
+
+    "COMPONENT_SPLIT_REQUEST": True,
+
+    "SECURITY_SCHEMES": {
+        "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+        }
+    },
 }

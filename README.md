@@ -16,11 +16,13 @@ A RESTful Task Management API built using Django REST Framework.
 
 ## Tech Stack
 
-- Python
+
+- python
 - Django
 - Django REST Framework
-- SQLite (Development)
-- PostgreSQL (Coming for Production)
+- PostgreSQL
+- JWT Authentication
+- Render
 
 ## Installation
 
@@ -45,7 +47,7 @@ python manage.py runserver
 
 ## Future Improvements
 
-- PostgreSQL
-- Deployment on Render
+
+
 - Docker
 - API Documentation (Swagger)

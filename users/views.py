@@ -3,12 +3,19 @@ from rest_framework.response import Response
 from .serializer import *
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
-
+from rest_framework import status
 from rest_framework.views import APIView
 
 
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated 
+
+from drf_spectacular.utils import extend_schema
+
+@extend_schema(
+    request=RegisterSerializer,
+    responses=RegisterSerializer,
+)
 
 
 class RegisterAPIView(APIView):
@@ -17,9 +24,9 @@ class RegisterAPIView(APIView):
 
         if serializer.is_valid():
             serializer.save() 
-            return Response(serializer.data)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
             
-        return Response(serializer.errors)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         
 
 
@@ -33,6 +40,10 @@ class ProfileAPIView(APIView):
              user = request.user 
              serializer = ProfileSerializer(user) 
              return Response(serializer.data)
+        
+@extend_schema(
+    request=ChangePasswordSerializer,
+)
         
 
 class ChangePasswordAPIView(APIView):
