@@ -40,11 +40,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
             'password' : {'write_only':True}
         }
 
-class UpdateProfileSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = User 
-        fields =['username','first_name','last_name','email']
        
     
 

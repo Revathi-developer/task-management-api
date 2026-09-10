@@ -36,10 +36,25 @@ class ProfileAPIView(APIView):
     
         permission_classes = [IsAuthenticated]
 
-        def get(self,request):
-             user = request.user 
-             serializer = ProfileSerializer(user) 
-             return Response(serializer.data)
+        def get(self, request):
+            user = request.user
+            serializer = ProfileSerializer(user)
+            return Response(serializer.data)
+
+        def patch(self, request):
+            user = request.user
+
+            serializer = ProfileSerializer(
+                user,
+                data=request.data,
+                partial=True
+            )
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+
+            return Response(serializer.errors, status=400)
         
 @extend_schema(
     request=ChangePasswordSerializer,
@@ -72,31 +87,3 @@ class ChangePasswordAPIView(APIView):
                
 
      
-class UpdateProfileAPIView(APIView):
-     
-     permission_classes = [IsAuthenticated]
-
-     def put(self,request):
-          serializer = UpdateProfileSerializer(data=request.data)
-
-          if serializer.is_valid():
-               username = serializer.validated_data['username']
-               firstname = serializer.validated_data['first_name']
-               lastname = serializer.validated_data['last_name']
-               email = serializer.validated_data['email']
-
-               user = request.user 
-               user.username = username 
-               user.first_name = firstname 
-               user.last_name = lastname 
-               user.email = email 
-               user.save() 
-               return Response({"message":"Updated Profile Successfully."})
-          
-        
-                
-        
-
-
-
-# Create your views here.
