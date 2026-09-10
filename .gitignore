@@ -13,3 +13,7 @@ db.sqlite3
 
 # VS Code
 .vscode/
+
+
+# React
+frontend/node_modules/
